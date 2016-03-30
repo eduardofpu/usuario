@@ -1,0 +1,177 @@
+
+<html lang="en">
+<head>
+  <title>Cadastrar Atividade</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a th:href="@{/admin}">Home</a></li>
+		<li class="active"><a th:href="@{/user}">Cadastrar Usuarios</a></li>
+        <li><a th:href="@{/c}">Cadastrar Cursos</a></li>
+        <li><a th:href="@{/atividade}">Cadastrar Atividades</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+     <form th:action="@{/logout}" method="post">
+				<input type="submit" class="btn btn-success" value="Logout" />
+			</form>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    
+    <div class="col-sm-8 text-left"> 
+	<form class="form-horizontal" th:action="@{/atividade/salve}"
+				method="post">
+
+
+
+
+				<div class="form-group">
+					<font color="blue">Curso</font> <select name="curso">
+						<option th:each="curso : ${cursos}" th:text="${curso.nome}"
+							th:value="${curso.cd_Curso}" />
+					</select>
+				</div>
+
+				<div class="form-group">
+
+					<input type="hidden" th:value="${a.cd_Atividade}"
+						name="cd_Atividade" /> <label> Data Inicio:</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" placeholder="12-12-2012"
+							th:value="${a.data_Inicio}" name="data_Inicio" />
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+
+					<label> Descricao:</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" placeholder="Descricao"
+							th:value="${a.descricao}" name="descricao" />
+					</div>
+
+				</div>
+				<div class="form-group">
+
+					<label> Nome Atividade:</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control"
+							placeholder="Nome da atividade" th:value="${a.nome_Atividade}"
+							name="nome_Atividade" />
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<label> Quantidade Vagas:</label>
+					<div class="col-sm-1">
+						<input type="text" class="form-control" placeholder="vagas"
+							th:value="${a.quantidade_Vagas}" name="quantidade_Vagas" />
+
+					</div>
+				</div>
+
+
+				
+
+						<button type="submit" class="btn btn-default">Salvar</button>
+
+					
+
+			</form>
+			
+			<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Data Inicio</th>
+						<th>Descricao</th>
+						<th>Nome Atividade</th>
+						<th>Quantidade Vagas</th>
+						<th>Nome do Curso</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="success" th:each="at:${atividades}">
+
+						<td class="success" th:text="${at.data_Inicio}"></td>
+						<td class="success" th:text="${at.descricao}"></td>
+						<td class="success" th:text="${at.nome_Atividade}"></td>
+						<td class="success" th:text="${at.quantidade_Vagas}"></td>
+						<td class="success" th:text="${at.curso.nome}"></td>
+
+					</tr>
+				</tbody>
+			</table>
+		
+      
+    </div>
+    
+  </div>
+</div>
+</div>
+
+<footer class="container-fluid text-center">
+  
+</footer>
+
+</body>
+</html>

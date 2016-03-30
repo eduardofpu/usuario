@@ -1,0 +1,166 @@
+
+<html lang="en">
+<head>
+  <title>Inscrição</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a th:href="@{/admin}">Home</a></li>
+		<li class="active"><a th:href="@{/user}">Cadastrar Usuarios</a></li>
+        <li><a th:href="@{/c}">Cadastrar Cursos</a></li>
+        <li><a th:href="@{/atividade}">Cadastrar Atividades</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+     <form th:action="@{/logout}" method="post">
+				<input type="submit" class="btn btn-success" value="Logout" />
+			</form>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    
+    <div class="col-sm-8 text-left"> 
+	<form class="form-horizontal" th:action="@{/alunoAtividade/salve}"
+				method="post">
+
+
+
+              <div class="form-group">
+
+					<font color="blue">Alunos</font> <select name="login">
+						<option th:each="a : ${usuario}" th:text="${a.name}"
+							th:value="${a.cd_Usuario}" />
+					</select>
+
+				</div>
+
+
+
+				<div class="form-group">
+
+					<font color="blue">Curso</font> <select name="curso">
+						<option th:each="curso : ${cursos}" th:text="${curso.nome}"
+							th:value="${curso.cd_Curso}" />
+					</select>
+
+				</div>
+				
+				
+				<div class="form-group">
+
+					<font color="blue">Atividade</font> <select name="atividade">
+						<option th:each="atividade : ${atividades}"
+							th:text="${atividade.nome_Atividade}"
+							th:value="${atividade.cd_Atividade}" />
+					</select>
+				</div>
+
+				
+
+				
+				
+
+				
+
+				
+
+						<button type="submit" class="btn btn-default">Salvar</button>
+
+					
+
+			</form>
+
+		</div>
+		<div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+					    <th>Usuario</th>
+						<th>Data Inicio</th>
+						<th>Descricao</th>
+						<th>Nome Atividade</th>
+						<th>Quantidade Vagas</th>
+						<th>Nome do Curso</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="success" th:each="at:${alunoSemana}">
+
+                        <td class="success" th:text="${at.login.name}"></td>
+						<td class="success" th:text="${at.atividade.data_Inicio}"></td>
+						<td class="success" th:text="${at.atividade.descricao}"></td>
+						<td class="success" th:text="${at.atividade.nome_Atividade}"></td>
+						<td class="success" th:text="${at.atividade.quantidade_Vagas}"></td>
+						<td class="success" th:text="${at.curso.nome}"></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+      
+    </div>
+    
+  </div>
+
+
+<footer class="container-fluid text-center">
+  
+</footer>
+
+</body>
+</html>
